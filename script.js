@@ -25,7 +25,7 @@ const fmt = new Intl.NumberFormat('en-GB');
 async function init() {
   startClock();
   try {
-    const res = await fetch('data/countries.json');
+    const res = await fetch('countries.json');
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     state.countries = await res.json();
     state.countries.forEach(c => state.byCca3.set(c.cca3, c));
