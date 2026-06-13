@@ -1,1 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATLAS DECK — World Data Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+  <header class="board-header">
+    <div class="brand">
+      <span class="brand-globe" id="brandGlobe">◐</span>
+      <h1>ATLAS<span class="brand-slash">//</span>DECK</h1>
+    </div>
+    <p class="tagline">WORLD DATA TERMINAL · 250 TERRITORIES · LIVE FEEDS</p>
+    <div class="clock-strip">
+      <span id="utcClock">--:--:-- UTC</span>
+      <span class="status-dot" id="apiStatus" title="data status">●</span>
+    </div>
+  </header>
+
+  <nav class="view-tabs" role="tablist">
+    <button class="tab active" data-view="explore" role="tab">EXPLORE</button>
+    <button class="tab" data-view="compare" role="tab">COMPARE</button>
+    <button class="tab" data-view="quiz" role="tab">FLAG QUIZ</button>
+  </nav>
+
+  <!-- ============ EXPLORE VIEW ============ -->
+  <main id="view-explore" class="view active">
+
+    <section class="controls">
+      <div class="control search-wrap">
+        <label for="searchInput">SEARCH</label>
+        <input type="text" id="searchInput" placeholder="country, capital or language…" autocomplete="off">
+      </div>
+      <div class="control">
+        <label for="regionFilter">REGION</label>
+        <select id="regionFilter">
+          <option value="all">ALL REGIONS</option>
+        </select>
+      </div>
+      <div class="control">
+        <label for="sortBy">SORT BY</label>
+        <select id="sortBy">
+          <option value="name">NAME</option>
+          <option value="population">POPULATION</option>
+          <option value="area">AREA</option>
+          <option value="density">DENSITY</option>
+        </select>
+      </div>
+      <button id="sortOrder" class="order-btn" title="toggle sort order">▲ ASC</button>
+    </section>
+
+    <section class="stats-strip" id="statsStrip" aria-live="polite">
+      <!-- computed stats injected here -->
+    </section>
+
+    <section class="board" id="countryBoard">
+      <div class="board-loading" id="loadingMsg">LOADING WORLD DATA<span class="blink">▌</span></div>
+    </section>
+  </main>
+
+  <!-- ============ COMPARE VIEW ============ -->
+  <main id="view-compare" class="view">
+    <section class="compare-pickers">
+      <div class="picker">
+        <label for="compareA">TERRITORY A</label>
+        <select id="compareA"></select>
+      </div>
+      <div class="vs-badge">VS</div>
+      <div class="picker">
+        <label for="compareB">TERRITORY B</label>
+        <select id="compareB"></select>
+      </div>
+    </section>
+    <section id="compareResult" class="compare-result">
+      <p class="hint">Select two territories above to run a head-to-head comparison.</p>
+    </section>
+  </main>
+
+  <!-- ============ QUIZ VIEW ============ -->
+  <main id="view-quiz" class="view">
+    <section class="quiz-shell" id="quizShell">
+      <div class="quiz-intro" id="quizIntro">
+        <h2>FLAG RECOGNITION TEST</h2>
+        <p>10 flags. 4 options each. Boarding closes when you finish.</p>
+        <button class="big-btn" id="startQuiz">BEGIN TEST</button>
+      </div>
+      <div class="quiz-game hidden" id="quizGame">
+        <div class="quiz-meta">
+          <span id="quizProgress">Q 1/10</span>
+          <span id="quizScore">SCORE 0</span>
+        </div>
+        <img id="quizFlag" class="quiz-flag" alt="mystery flag">
+        <div class="quiz-options" id="quizOptions"></div>
+        <p class="quiz-feedback" id="quizFeedback"></p>
+      </div>
+      <div class="quiz-done hidden" id="quizDone">
+        <h2 id="quizFinalTitle"></h2>
+        <p id="quizFinalMsg"></p>
+        <button class="big-btn" id="restartQuiz">RE-TEST</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ DOSSIER OVERLAY ============ -->
+  <div class="dossier-backdrop hidden" id="dossierBackdrop">
+    <article class="dossier" id="dossier" role="dialog" aria-modal="true">
+      <button class="dossier-close" id="dossierClose" aria-label="close">✕ CLOSE</button>
+      <div id="dossierContent"><!-- injected --></div>
+    </article>
+  </div>
+
+  <footer class="board-footer">
+    <p>ATLAS//DECK · built from scratch in HTML/CSS/JS · data: mledoze/countries · live feeds: Open-Meteo &amp; Frankfurter · flags: flagcdn.com</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
